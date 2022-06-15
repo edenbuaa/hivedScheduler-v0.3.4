@@ -49,6 +49,7 @@ type schedulingRequest struct {
 	priority             CellPriority
 	suggestedNodes       common.Set
 	ignoreSuggestedNodes bool
+	quota				 api.Quota
 }
 
 // CellList is a list of cells at a certain level of a chain.
@@ -145,6 +146,7 @@ type AlgoAffinityGroup struct {
 	virtualLeafCellPlacement  groupVirtualPlacement
 	state                     AffinityGroupState
 	lazyPreemptionStatus      *api.LazyPreemptionStatus
+	quota					  api.Quota
 }
 
 func newAlgoAffinityGroup(
@@ -168,6 +170,7 @@ func newAlgoAffinityGroup(
 		physicalLeafCellPlacement: groupPhysicalPlacement{},
 		virtualLeafCellPlacement:  groupVirtualPlacement{},
 		state:                     state,
+		quota:					   quota,
 	}
 	if state == groupPreempting {
 		group.preemptingPods = map[types.UID]*core.Pod{}
