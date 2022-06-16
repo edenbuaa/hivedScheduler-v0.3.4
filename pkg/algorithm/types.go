@@ -154,6 +154,7 @@ func newAlgoAffinityGroup(
 	vc api.VirtualClusterName,
 	lazyPreemptionEnable bool,
 	priority int32,
+	quota api.Quota,
 	state AffinityGroupState) *AlgoAffinityGroup {
 
 	podNums := make(map[int32]int32)
