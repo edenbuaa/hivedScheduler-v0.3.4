@@ -42,5 +42,5 @@ ENV INSTALL_DIR=/opt/hivedscheduler/hivedscheduler
 RUN apk update && apk add --no-cache bash
 COPY --from=builder ${INSTALL_DIR} ${INSTALL_DIR}
 WORKDIR ${INSTALL_DIR}
-
+RUN chmod +x ./start.sh
 ENTRYPOINT ["./start.sh"]
