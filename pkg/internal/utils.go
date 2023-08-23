@@ -181,7 +181,22 @@ func NewBindingPod(pod *core.Pod, podBindInfo *si.PodBindInfo) *core.Pod {
 		common.ToIndicesString(podBindInfo.LeafCellIsolation)
 	bindingPod.Annotations[si.AnnotationKeyPodBindInfo] =
 		common.ToYaml(podBindInfo)
+        //add the annotation key for mig device. by fly
+	deviceList := bindingPod.Annotations[si.AnnotationKeyPodLeafCellIsolation]
+	result := ""
+	if deviceList != "" {
+		devices := strings.Split(deviceList, ",")		
 
+		for _, str := range devices {
+			i, _ := strconv.Atoi(str)
+			m := i / 8
+			n := i % 8
+			result += fmt.Sprintf(",%d:%d", m, n)
+		}
+		result = result[1:]
+	}
+	bindingPod.Annotations[si.AnnotationKeyPodLeafCellIsolationMig] = result
+	//end
 	return bindingPod
 }
 
