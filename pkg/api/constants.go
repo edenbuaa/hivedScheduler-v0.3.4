@@ -49,7 +49,9 @@ const (
 	// use the allocated leaf cells for the whole Pod.
 	AnnotationKeyPodLeafCellIsolation      = GroupName + "/pod-leaf-cell-isolation"
 	DeprecatedAnnotationKeyPodGpuIsolation = GroupName + "/pod-gpu-isolation"
-
+	//set the cell key for mig device(signle mode).by fly
+	AnnotationKeyPodLeafCellIsolationMig   = GroupName + "/pod-leaf-cell-isolation-mig"
+	
 	// Populated by this scheduler, used to track and recover allocated placement.
 	// It is in PodBindInfo YAML format.
 	AnnotationKeyPodBindInfo = GroupName + "/pod-bind-info"
