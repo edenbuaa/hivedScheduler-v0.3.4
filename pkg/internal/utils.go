@@ -26,7 +26,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-
+	"strconv"
 	si "github.com/microsoft/hivedscheduler/pkg/api"
 	"github.com/microsoft/hivedscheduler/pkg/common"
 	core "k8s.io/api/core/v1"
@@ -189,8 +189,8 @@ func NewBindingPod(pod *core.Pod, podBindInfo *si.PodBindInfo) *core.Pod {
 
 		for _, str := range devices {
 			i, _ := strconv.Atoi(str)
-			m := i / 8
-			n := i % 8
+			m := i / 7
+			n := i % 7
 			result += fmt.Sprintf(",%d:%d", m, n)
 		}
 		result = result[1:]
@@ -231,6 +231,7 @@ func ExtractPodBindAnnotations(allocatedPod *core.Pod) map[string]string {
 		return map[string]string{
 			si.AnnotationKeyPodLeafCellIsolation: allocatedPod.Annotations[si.AnnotationKeyPodLeafCellIsolation],
 			si.AnnotationKeyPodBindInfo:          allocatedPod.Annotations[si.AnnotationKeyPodBindInfo],
+			si.AnnotationKeyPodLeafCellIsolationMig: allocatedPod.Annotations[si.AnnotationKeyPodLeafCellIsolationMig],
 		}
 	} else {
 		return map[string]string{
@@ -322,10 +323,11 @@ func BindPod(kClient kubeClient.Interface, bindingPod *core.Pod) {
 		panic(fmt.Errorf("Failed to bind Pod: %v", err))
 	}
 
-	klog.Infof("[%v]: Succeeded to bind Pod on node %v, leaf cells %v",
+	klog.Infof("[%v]: Succeeded to bind Pod on node %v, leaf cells %v,mig cell %v",
 		Key(bindingPod),
 		bindingPod.Spec.NodeName,
-		bindingPod.Annotations[si.AnnotationKeyPodLeafCellIsolation])
+		bindingPod.Annotations[si.AnnotationKeyPodLeafCellIsolation],
+		bindingPod.Annotations[si.AnnotationKeyPodLeafCellIsolationMig])
 }
 
 func NewBadRequestError(message string) *si.WebServerError {
