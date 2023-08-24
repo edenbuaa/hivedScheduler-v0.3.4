@@ -21,8 +21,6 @@
 # SOFTWARE
 
 FROM golang:1.12.6-alpine as builder
-RUN apk add git
-ENV GO111MODULE=on
 ARG TEST=false
 ENV PROJECT_DIR=${GOPATH}/src/github.com/microsoft/hivedscheduler
 ENV INSTALL_DIR=/opt/hivedscheduler/hivedscheduler
