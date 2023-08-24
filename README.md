@@ -1,3 +1,7 @@
+# Build Note
+
+unzip the vendor.zip first before to docker build
+
 # Microsoft OpenPAI HiveDScheduler
 
 [![Build Status](https://github.com/microsoft/hivedscheduler/workflows/build/badge.svg?branch=master&event=push)](https://github.com/microsoft/hivedscheduler/actions?query=workflow%3Abuild+branch%3Amaster+event%3Apush)
